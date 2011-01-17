@@ -3,7 +3,7 @@ require 'rubygems'
 require 'curb'
 require 'http_headers'
 require 'feed-normalizer'
-require 'md5'
+require 'digest/md5'
 require 'uri'
 
 lib_dirs =  [ 'extensions', 'feedtosis' ].map do |d|

@@ -126,7 +126,7 @@ module Feedtosis
 
     # Returns the key for the storage of the summary structure in the key-value system.
     def key_for_cached
-      [ @options[:namespace], MD5.hexdigest(@url) ].join('_')
+      [ @options[:namespace], Digest::MD5.hexdigest(@url) ].join('_')
     end
     
     # Stores information about the retrieval, including ETag, Last-Modified, 
@@ -163,7 +163,7 @@ module Feedtosis
     # This signature will be the MD5 of enough fields to have a reasonable 
     # probability of determining if the entry is unique or not.
     def digest_for(entry)      
-      MD5.hexdigest( [ entry.title, entry.content, entry.date_published ].join )
+      Digest::MD5.hexdigest( [ entry.title, entry.content, entry.date_published ].join )
     end
     
     def parser_for_xml(xml)

@@ -79,12 +79,12 @@ describe Feedtosis::Client do
   describe "#key_for_cached" do
     it "should default to the MD5 of the url after the namespace" do
       c = Feedtosis::Client.new(@url)
-      c.__send__(:key_for_cached).should == [ 'feedtosis', MD5.hexdigest(@url) ].join('_')
+      c.__send__(:key_for_cached).should == [ 'feedtosis', Digest::MD5.hexdigest(@url) ].join('_')
     end
     
     it "should respect a custom namespace if given" do
       c = Feedtosis::Client.new(@url, :namespace => 'justin')
-      c.__send__(:key_for_cached).should == [ 'justin', MD5.hexdigest(@url) ].join('_')
+      c.__send__(:key_for_cached).should == [ 'justin', Digest::MD5.hexdigest(@url) ].join('_')
     end
   end
     
