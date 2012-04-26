@@ -52,6 +52,10 @@ module Feedtosis
       curl = build_curl_easy
       curl.perform
       feed = process_curl_response(curl)
+      unless feed
+        $stderr.puts "Feedtosis: Warning couldn't fetch #{@url}"
+        return nil
+      end
       Feedtosis::Result.new(curl, feed)
     end
     
@@ -85,8 +89,10 @@ module Feedtosis
     def process_curl_response(curl)
       if curl.response_code == 200
         response = parser_for_xml(curl.body_str)
-        response = mark_new_entries(response)
-        store_summary_to_backend(response, curl)
+        if response
+          response = mark_new_entries(response)
+          store_summary_to_backend(response, curl)
+        end
         response
       end
     end
@@ -99,6 +105,7 @@ module Feedtosis
       # Many feeds have a 302 redirect to another URL.  For more recent versions 
       # of Curl, we need to specify this.
       curl.follow_location = true
+      curl.ssl_verify_peer = false
       
       set_header_options(curl)
     end
