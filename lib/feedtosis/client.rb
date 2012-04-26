@@ -35,7 +35,7 @@ module Feedtosis
 
       @backend  = @options[:backend]
       
-      unless @url.match(URI.regexp('http'))
+      unless @url.match(URI.regexp(/https?/))
         raise ArgumentError, "Url #{@url} is not valid!"
       end
       
