@@ -57,6 +57,7 @@ module Feedtosis
         return nil
       end
       Feedtosis::Result.new(curl, feed)
+    rescue Curl::Err::GotNothingError
     end
     
     private
