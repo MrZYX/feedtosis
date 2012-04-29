@@ -107,6 +107,7 @@ module Feedtosis
       # of Curl, we need to specify this.
       curl.follow_location = true
       curl.ssl_verify_peer = false
+      curl.useragent = "Mozilla/5.0 (X11; U; Linux i586; en-US; rv:1.7.3) Gecko/20040924 Epiphany/1.4.4 (Ubuntu)"
       
       set_header_options(curl)
     end
