@@ -58,6 +58,10 @@ module Feedtosis
       end
       Feedtosis::Result.new(curl, feed)
     rescue Curl::Err::GotNothingError
+      return nil
+    rescue Curl::Err::ConnectionFailedError
+      $stderr.puts "Feedtosis: Warning couldn't fetch #{@url}"
+      return nil
     end
     
     private
